@@ -14,12 +14,10 @@ public class StringUtilities {
 
         Random random = new Random();
 
-        String generatedString = random.ints(ASCII_0, ASCII_z + 1)
+        return random.ints(ASCII_0, ASCII_z + 1)
                 .filter(i -> i <= ASCII_9 || (i >= ASCII_A && i <= ASCII_Z) || i >= ASCII_a)
                 .limit(length)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
-
-        return generatedString;
     }
 }

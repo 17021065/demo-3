@@ -12,6 +12,7 @@ import springboot.demo3.utilities.StringUtilities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -23,30 +24,36 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionResponse add(TransactionRequest transactionRequest) throws IllegalAccessException {
-        log.info("Request details: {}", transactionRequest);
+        log.info("Begin to add transaction");
+        log.info(String.valueOf(transactionRequest));
 
         String bankCode = transactionRequest.getBankCode();
-        BankDTO bank = bankConfigure.findBankByCode(bankCode);
-        String privateKey = bank == null ? null : bank.getPrivateKey();
+        String privateKey = null;
+        for (BankDTO bank : bankConfigure.getBanks()) {
+            if (bank.getBankCode().equals(bankCode)) {
+                privateKey = bank.getPrivateKey();
+            }
+        }
 
         if (ObjectUtilities.hasNullOrEmptyOrBlankAttributes(transactionRequest)) {
-            log.info("FAULT: Request has null or empty or blank attribute!");
+            log.info("Add transaction failed: Request has null or empty or blank attribute!");
             return response(BaseResponseCategories.INVALID_REQUEST, privateKey);
         }
-        if (!bankConfigure.isContain(bankCode)) {
-            log.info("FAULT: Bank code is not exist!");
-            return response(BaseResponseCategories.AUTHORIZED, privateKey);
+        if (privateKey == null) {
+            log.info("Add transaction failed: Bank code is not exist!");
+            return response(BaseResponseCategories.AUTHORIZED, null);
         }
         if (!transactionRequest.isCorrectCheckSum(privateKey)) {
-            log.info("FAULT: Check sum is incorrect!");
+            log.info("Add transaction failed: Check sum is incorrect!");
             return response(BaseResponseCategories.SUSPICIOUS_REQUEST, privateKey);
         }
 
-        setValue(bankCode,
+        redisTemplate.opsForHash().put(bankCode,
                 transactionRequest.getTokenKey(),
-                ObjectUtilities.convertToJson(transactionRequest)
+                Objects.requireNonNull(ObjectUtilities.convertToJson(transactionRequest))
         );
 
+        log.info("Add transaction successfully!");
         return response(BaseResponseCategories.SUCCESS, privateKey);
     }
 
@@ -68,11 +75,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .checkSum(checkSum)
                 .build();
 
-        log.info("Responded to requester: {}", response);
+        log.info(String.valueOf(response));
         return response;
-    }
-
-    public void setValue(String hashKey, String field, String value) {
-        redisTemplate.opsForHash().put(hashKey, field, value);
     }
 }

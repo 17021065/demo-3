@@ -1,0 +1,17 @@
+bankConfig:
+  banks:
+    - bankCode: VNPAY
+      privateKey: ghffffffffff
+      ips:
+    - bankCode: BIDV
+      privateKey: jjjjjjjj
+      ips:
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    jedis:
+      pool:
+        max-active: 10
+        max-idle: 5
+        min-idle: 2

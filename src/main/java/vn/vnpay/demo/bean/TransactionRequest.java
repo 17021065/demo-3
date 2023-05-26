@@ -1,4 +1,4 @@
-package springboot.demo3.bean;
+package vn.vnpay.demo.bean;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -22,14 +22,14 @@ public class TransactionRequest {
     private String respDesc;
     private String traceTransfer;
     private String messageType;
-    private String checkSum;
+    private String checksum;
     private String orderCode;
     private String userName;
     private String realAmount;
     private String promotionCode;
 
-    public Boolean isCorrectCheckSum(String privateKey) {
-        String correctCheckSum = DigestUtils.sha256Hex(mobile +
+    public boolean isCorrectChecksum(String privateKey) {
+        String checksumCombine = mobile +
                 bankCode +
                 accountNo +
                 payDate +
@@ -37,10 +37,13 @@ public class TransactionRequest {
                 respCode +
                 traceTransfer +
                 messageType +
-                privateKey
-        );
+                privateKey;
+        log.info("Request checksum before hex: {}", checksumCombine);
 
-        return checkSum.equals(correctCheckSum);
+        String correctChecksum = DigestUtils.sha256Hex(checksumCombine);
+        log.info("Request checksum after hex: {}", correctChecksum);
+
+        return checksum.equalsIgnoreCase(correctChecksum);
     }
 
     @Override
@@ -58,7 +61,7 @@ public class TransactionRequest {
                 ", respDesc='" + respDesc + '\'' +
                 ", traceTransfer='" + traceTransfer + '\'' +
                 ", messageType='" + messageType + '\'' +
-                ", checkSum='" + checkSum + '\'' +
+                ", checksum='" + checksum + '\'' +
                 ", orderCode='" + orderCode + '\'' +
                 ", userName='" + userName + '\'' +
                 ", realAmount='" + realAmount + '\'' +

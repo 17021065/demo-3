@@ -1,4 +1,4 @@
-package springboot.demo3.utilities;
+package vn.vnpay.demo.utilities;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package springboot.demo3.bean;
+package vn.vnpay.demo.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package springboot.demo3.bean;
+package vn.vnpay.demo.bean;
 
 public enum BaseResponseCategories implements BaseResponse {
     SUCCESS("00", "Success"),

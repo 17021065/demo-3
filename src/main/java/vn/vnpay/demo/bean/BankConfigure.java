@@ -1,4 +1,4 @@
-package springboot.demo3.bean;
+package vn.vnpay.demo.bean;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,4 +15,13 @@ import java.util.List;
 @Slf4j
 public class BankConfigure {
     private List<BankDTO> banks;
+
+    public BankDTO findBankByCode(String bankCode) {
+        for (BankDTO bank : banks) {
+            if (bank.getBankCode().equals(bankCode)) {
+                return bank;
+            }
+        }
+        return null;
+    }
 }

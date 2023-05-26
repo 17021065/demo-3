@@ -1,4 +1,4 @@
-package springboot.demo3.bean;
+package vn.vnpay.demo.bean;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +16,7 @@ public class RedisConfigure {
 
     @Bean
     public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory jedisConnectionFactory) {
+        // Todo: connection pool
         RedisTemplate<String, String> template = new RedisTemplate<>();
         template.setConnectionFactory(jedisConnectionFactory);
         template.setHashKeySerializer(new StringRedisSerializer());

@@ -1,4 +1,4 @@
-package springboot.demo3.bean;
+package vn.vnpay.demo.bean;
 
 import lombok.*;
 
@@ -12,7 +12,7 @@ public class TransactionResponse {
     private String message;
     private String responseId;
     private String responseTime;
-    private String checkSum;
+    private String checksum;
 
     @Override
     public String toString() {
@@ -21,7 +21,7 @@ public class TransactionResponse {
                 ", message='" + message + '\'' +
                 ", responseId='" + responseId + '\'' +
                 ", responseTime='" + responseTime + '\'' +
-                ", checkSum='" + checkSum + '\'' +
+                ", checksum='" + checksum + '\'' +
                 '}';
     }
 }

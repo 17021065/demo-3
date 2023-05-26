@@ -3,6 +3,7 @@ package vn.vnpay.demo.bean;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
+import vn.vnpay.demo.utilities.ObjectUtilities;
 
 @Getter
 @Setter
@@ -48,24 +49,6 @@ public class TransactionRequest {
 
     @Override
     public String toString() {
-        return "TransactionRequest{" +
-                "tokenKey='" + tokenKey + '\'' +
-                ", apiID='" + apiID + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", bankCode='" + bankCode + '\'' +
-                ", accountNo='" + accountNo + '\'' +
-                ", payDate='" + payDate + '\'' +
-                ", additionalData='" + additionalData + '\'' +
-                ", debitAmount=" + debitAmount +
-                ", respCode='" + respCode + '\'' +
-                ", respDesc='" + respDesc + '\'' +
-                ", traceTransfer='" + traceTransfer + '\'' +
-                ", messageType='" + messageType + '\'' +
-                ", checksum='" + checksum + '\'' +
-                ", orderCode='" + orderCode + '\'' +
-                ", userName='" + userName + '\'' +
-                ", realAmount='" + realAmount + '\'' +
-                ", promotionCode='" + promotionCode + '\'' +
-                '}';
+        return ObjectUtilities.convertToJson(this);
     }
 }

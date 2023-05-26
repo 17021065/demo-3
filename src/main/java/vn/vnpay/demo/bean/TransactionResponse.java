@@ -1,6 +1,7 @@
 package vn.vnpay.demo.bean;
 
 import lombok.*;
+import vn.vnpay.demo.utilities.ObjectUtilities;
 
 @Getter
 @Setter
@@ -16,12 +17,6 @@ public class TransactionResponse {
 
     @Override
     public String toString() {
-        return "TransactionResponse{" +
-                "code='" + code + '\'' +
-                ", message='" + message + '\'' +
-                ", responseId='" + responseId + '\'' +
-                ", responseTime='" + responseTime + '\'' +
-                ", checksum='" + checksum + '\'' +
-                '}';
+        return ObjectUtilities.convertToJson(this);
     }
 }

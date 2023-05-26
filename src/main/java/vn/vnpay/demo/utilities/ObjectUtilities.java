@@ -22,7 +22,7 @@ public class ObjectUtilities {
                 }
             }
             return false;
-        } catch (SecurityException | IllegalArgumentException | IllegalAccessException e) {
+        } catch (Exception e) {
             log.error("Checking attribute check failed: ", e);
             return false;
         }
@@ -31,7 +31,7 @@ public class ObjectUtilities {
     public static String convertToJson(Object object) {
         try {
             return objectMapper.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             log.error("JSON conversion failed: ", e);
             return null;
         }

@@ -16,7 +16,6 @@ public class RedisConfigure {
 
     @Bean
     public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory jedisConnectionFactory) {
-        // Todo: connection pool
         RedisTemplate<String, String> template = new RedisTemplate<>();
         template.setConnectionFactory(jedisConnectionFactory);
         template.setHashKeySerializer(new StringRedisSerializer());

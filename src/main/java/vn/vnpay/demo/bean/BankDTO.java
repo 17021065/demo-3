@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import vn.vnpay.demo.utilities.ObjectUtilities;
 
 @Getter
 @Setter
@@ -16,10 +17,6 @@ public class BankDTO {
 
     @Override
     public String toString() {
-        return "BankDTO{" +
-                "bankCode='" + bankCode + '\'' +
-                ", privateKey='" + privateKey + '\'' +
-                ", ips='" + ips + '\'' +
-                '}';
+        return ObjectUtilities.convertToJson(this);
     }
 }

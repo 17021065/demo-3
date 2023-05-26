@@ -27,7 +27,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         if (ObjectUtilities.hasNullOrEmptyOrBlankAttributes(transactionRequest)) {
             log.info("Add transaction failed: Request has null or empty or blank attribute!");
-            return response(BaseResponseCategories.INVALID_REQUEST, null);
+            return response(BaseResponseCategories.INVALID_REQUEST);
         }
 
         String bankCode = transactionRequest.getBankCode();
@@ -36,7 +36,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         if (privateKey == null) {
             log.info("Add transaction failed: Bank code is not exist!");
-            return response(BaseResponseCategories.AUTHORIZED, null);
+            return response(BaseResponseCategories.AUTHORIZED);
         }
         if (!transactionRequest.isCorrectChecksum(privateKey)) {
             log.info("Add transaction failed: Checksum is incorrect!");
@@ -71,6 +71,16 @@ public class TransactionServiceImpl implements TransactionService {
                 .responseId(responseId)
                 .responseTime(responseTime)
                 .checksum(checksum)
+                .build();
+
+        log.info("Final response: {}", response);
+        return response;
+    }
+
+    private TransactionResponse response(BaseResponse baseResponse) {
+        TransactionResponse response = TransactionResponse.builder()
+                .code(baseResponse.getCode())
+                .message(baseResponse.getMessage())
                 .build();
 
         log.info("Final response: {}", response);

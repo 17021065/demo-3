@@ -18,7 +18,7 @@ public class BankConfigure {
 
     public BankDTO findBankByCode(String bankCode) {
         for (BankDTO bank : banks) {
-            if (bank.getBankCode().equals(bankCode)) {
+            if (bankCode.equals(bank.getBankCode())) {
                 return bank;
             }
         }

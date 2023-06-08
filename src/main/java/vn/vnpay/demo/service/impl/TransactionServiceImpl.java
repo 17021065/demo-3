@@ -25,7 +25,7 @@ public class TransactionServiceImpl implements TransactionService {
     public TransactionResponse add(TransactionRequest transactionRequest) {
         log.info("Begin to add transaction with data: {}", transactionRequest);
 
-        if (ObjectUtilities.hasNullOrEmptyOrBlankAttributes(transactionRequest)) {
+        if (ObjectUtilities.hasNullOrEmptyOrBlankAttributes(transactionRequest)) {// Todo: viet lai ham check
             log.info("Add transaction failed: Request has null or empty or blank attribute!");
             return response(BaseResponseCategories.INVALID_REQUEST);
         }
@@ -47,7 +47,7 @@ public class TransactionServiceImpl implements TransactionService {
         String hashValue = ObjectUtilities.convertToJson(transactionRequest);
         log.info("Push data to Redis: {hash:'{}', hashKey:'{}', hashValue:'{}'}", bankCode, hashKey, hashValue);
         redisTemplate.opsForHash().put(bankCode, hashKey, Objects.requireNonNull(hashValue));
-
+        // Todo: su khac nhau giua set va hset
         log.info("Add transaction successfully!");
         return response(BaseResponseCategories.SUCCESS, privateKey);
     }
